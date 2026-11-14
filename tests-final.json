@@ -1,6 +1,6 @@
 [
   {
-    "name": "T01: обычный запуск и остановка насоса",
+    "name": "S01: обычный запуск и остановка насоса",
     "steps": [
       {"input": {"humidity": 20, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "name": "T02: гистерезис — две истории, одинаковый конечный вход",
+    "name": "S02: гистерезис — две истории, одинаковый конечный вход",
     "steps": [
       {"input": {"humidity": 20, "temp": 32, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": true, "fault": false, "used": 5}},
@@ -18,7 +18,7 @@
     ]
   },
   {
-    "name": "T02b: вторая история — OFF сохраняется",
+    "name": "S02b: вторая история — OFF сохраняется",
     "steps": [
       {"input": {"humidity": 50, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}},
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "name": "T03: границы humidity 34.9/35/35.1/44.9/45",
+    "name": "S03: границы humidity 34.9/35/35.1/44.9/45",
     "steps": [
       {"input": {"humidity": 34.9, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -42,7 +42,7 @@
     ]
   },
   {
-    "name": "T04: границы temp 25.9/26/26.1/29.9/30",
+    "name": "S04: границы temp 25.9/26/26.1/29.9/30",
     "steps": [
       {"input": {"humidity": 50, "temp": 25.9, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}},
@@ -57,7 +57,7 @@
     ]
   },
   {
-    "name": "T05: возраст снимка 29/30/31",
+    "name": "S05: возраст снимка 29/30/31",
     "steps": [
       {"input": {"humidity": 20, "temp": 20, "age": 29, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -68,7 +68,7 @@
     ]
   },
   {
-    "name": "T06: запреты по одному — cold/rain/lowTank, tank=10 разрешает",
+    "name": "S06: запреты по одному — cold/rain/lowTank, tank=10 разрешает",
     "steps": [
       {"input": {"humidity": 20, "temp": 2.9, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}},
@@ -81,7 +81,7 @@
     ]
   },
   {
-    "name": "T07: fault и сброс",
+    "name": "S07: fault и сброс",
     "steps": [
       {"input": {"humidity": 200, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}},
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "name": "T08: конфликт бюджета при двух запросах",
+    "name": "S08: конфликт бюджета при двух запросах",
     "steps": [
       {"input": {"humidity": 20, "temp": 32, "age": 0, "tank": 50, "budget": 2, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -103,7 +103,7 @@
     ]
   },
   {
-    "name": "T09: потеря памяти включения после защитного выключения",
+    "name": "S09: потеря памяти включения после защитного выключения",
     "steps": [
       {"input": {"humidity": 20, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -114,7 +114,7 @@
     ]
   },
   {
-    "name": "T10: ошибки типов и структуры",
+    "name": "S10: ошибки типов и структуры",
     "steps": [
       {"input": {"temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}},
@@ -125,7 +125,7 @@
     ]
   },
   {
-    "name": "T11: детерминизм — повтор сценария T01",
+    "name": "S11: детерминизм — повтор сценария T01",
     "steps": [
       {"input": {"humidity": 20, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -134,7 +134,7 @@
     ]
   },
   {
-    "name": "T12: M4/M7/M8 — границы fresh=30, cold=3, lowTank=10",
+    "name": "S12: M4/M7/M8 — границы fresh=30, cold=3, lowTank=10",
     "steps": [
       {"input": {"humidity": 20, "temp": 20, "age": 30, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
@@ -145,14 +145,14 @@
     ]
   },
   {
-    "name": "T13: pumpFits=false — budget=0 при запросе насоса",
+    "name": "S13: pumpFits=false — budget=0 при запросе насоса",
     "steps": [
       {"input": {"humidity": 20, "temp": 20, "age": 0, "tank": 50, "budget": 0, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}}
     ]
   },
   {
-    "name": "T14: ventStop=true — был ON, temp<=26",
+    "name": "S14: ventStop=true — был ON, temp<=26",
     "steps": [
       {"input": {"humidity": 50, "temp": 30, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": true, "fault": false, "used": 3}},
@@ -161,7 +161,7 @@
     ]
   },
     {
-    "name": "T15: убиваем M1 — граница 35 при выключенном насосе",
+    "name": "S15: убиваем M1 — граница 35 при выключенном насосе",
     "steps": [
       {"input": {"humidity": 35, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}}
