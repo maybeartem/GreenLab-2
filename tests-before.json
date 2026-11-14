@@ -1,0 +1,112 @@
+[
+  {
+    "name": "S01: Обычный запуск и остановка насоса (R05)",
+    "steps": [
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}
+      },
+      {
+        "input": {"humidity": 50, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}
+      }
+    ]
+  },
+  {
+    "name": "S02: Гистерезис насоса (зона удержания R05)",
+    "steps": [
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}
+      },
+      {
+        "input": {"humidity": 40, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}
+      },
+      {
+        "input": {"humidity": 50, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}
+      },
+      {
+        "input": {"humidity": 40, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}
+      }
+    ]
+  },
+  {
+    "name": "S03: Конкуренция за бюджет (R09)",
+    "steps": [
+      {
+        "input": {"humidity": 20, "temp": 35, "rain": false, "age": 0, "tank": 50, "budget": 2, "reset": false},
+        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}
+      },
+      {
+        "input": {"humidity": 20, "temp": 35, "rain": false, "age": 0, "tank": 50, "budget": 3, "reset": false},
+        "expected": {"pump": false, "vent": true, "fault": false, "used": 3}
+      },
+      {
+        "input": {"humidity": 20, "temp": 35, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": true, "vent": true, "fault": false, "used": 5}
+      }
+    ]
+  },
+  {
+    "name": "S04: Авария по устареванию и сброс (R02, R03)",
+    "steps": [
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 31, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": true},
+        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}
+      }
+    ]
+  },
+  {
+    "name": "S05: Запреты насоса (R06, R07, R08)",
+    "steps": [
+      {
+        "input": {"humidity": 20, "temp": 3, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": true, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 9.9, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": false, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 10, "budget": 5, "reset": false},
+        "expected": {"pump": true, "vent": false, "fault": false, "used": 2}
+      }
+    ]
+  },
+  {
+    "name": "S06: Валидация типов и границ (R01)",
+    "steps": [
+      {
+        "input": {"humidity": "-10", "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 50.1, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 2.5, "reset": false},
+        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}
+      },
+      {
+        "input": {"humidity": 20, "temp": 20, "rain": false, "age": 0, "tank": 50, "budget": 5, "reset": "false"},
+        "expected": {"pump": false, "vent": false, "fault": true, "used": 0}
+      }
+    ]
+  }
+]
