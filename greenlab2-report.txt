@@ -1,0 +1,3781 @@
+GREENLAB 2 · ПРОТОКОЛ
+{
+  "createdAt": "2026-11-14T08:10:15.156Z",
+  "tests": [
+    {
+      "name": "S01: обычный запуск и остановка насоса",
+      "steps": [
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "S02: гистерезис — две истории, одинаковый конечный вход",
+      "steps": [
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          }
+        },
+        {
+          "input": {
+            "humidity": 40,
+            "temp": 28,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "S02b: вторая история — OFF сохраняется",
+      "steps": [
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 40,
+            "temp": 28,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "S03: границы humidity 34.9/35/35.1/44.9/45",
+      "steps": [
+        {
+          "input": {
+            "humidity": 34.9,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 35,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 35.1,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 44.9,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 45,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "S04: границы temp 25.9/26/26.1/29.9/30",
+      "steps": [
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 25.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 26,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 26.1,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 29.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 50,
+            "temp": 30,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "S05: возраст снимка 29/30/31",
+      "steps": [
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 29,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 30,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 31,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "S06: запреты по одному — cold/rain/lowTank, tank=10 разрешает",
+      "steps": [
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 2.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": true,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 9.9,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 10,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "S07: fault и сброс",
+      "steps": [
+        {
+          "input": {
+            "humidity": 200,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": true
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "S08: конфликт бюджета при двух запросах",
+      "steps": [
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 2,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 3,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "S09: потеря памяти включения после защитного выключения",
+      "steps": [
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": true,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 40,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "S10: ошибки типов и структуры",
+      "steps": [
+        {
+          "input": {
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": "20",
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          }
+        },
+        {
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 1.5,
+            "rain": false,
+            "reset": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          }
+        }
+      ]
+    }
+  ],
+  "reference": [
+    {
+      "name": "S01: обычный запуск и остановка насоса",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 50,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S02: гистерезис — две истории, одинаковый конечный вход",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "actual": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:true",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 40,
+            "temp": 28,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": true,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "actual": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:true",
+            "pumpFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S02b: вторая история — OFF сохраняется",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 50,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 40,
+            "temp": 28,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S03: границы humidity 34.9/35/35.1/44.9/45",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 34.9,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 35,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 35.1,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 4,
+          "input": {
+            "humidity": 44.9,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 5,
+          "input": {
+            "humidity": 45,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S04: границы temp 25.9/26/26.1/29.9/30",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 50,
+            "temp": 25.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 50,
+            "temp": 26,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 50,
+            "temp": 26.1,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 4,
+          "input": {
+            "humidity": 50,
+            "temp": 29.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 5,
+          "input": {
+            "humidity": 50,
+            "temp": 30,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "actual": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S05: возраст снимка 29/30/31",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 29,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 30,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 31,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "STALE",
+          "trace": [
+            "valid:true",
+            "fresh:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S06: запреты по одному — cold/rain/lowTank, tank=10 разрешает",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 2.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "COLD",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:true",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": true,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "RAIN",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:true",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 9.9,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "LOW_TANK",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:true"
+          ]
+        },
+        {
+          "number": 4,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 10,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S07: fault и сброс",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 200,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "LATCHED",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:true"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": true
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S08: конфликт бюджета при двух запросах",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 2,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "BUDGET",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 3,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "actual": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "pass": true,
+          "reason": "BUDGET",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:true",
+            "pumpFits:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": true,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "actual": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:true",
+            "pumpFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S09: потеря памяти включения после защитного выключения",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": true,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "RAIN",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:true",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 40,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S10: ошибки типов и структуры",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": "20",
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 1.5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        }
+      ]
+    }
+  ],
+  "candidate": [
+    {
+      "name": "S01: обычный запуск и остановка насоса",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 50,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S02: гистерезис — две истории, одинаковый конечный вход",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "actual": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true",
+            "ventFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 40,
+            "temp": 28,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": true,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "actual": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true",
+            "ventFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S02b: вторая история — OFF сохраняется",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 50,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 40,
+            "temp": 28,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S03: границы humidity 34.9/35/35.1/44.9/45",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 34.9,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 35,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 35.1,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 4,
+          "input": {
+            "humidity": 44.9,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 5,
+          "input": {
+            "humidity": 45,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S04: границы temp 25.9/26/26.1/29.9/30",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 50,
+            "temp": 25.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 50,
+            "temp": 26,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 50,
+            "temp": 26.1,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 4,
+          "input": {
+            "humidity": 50,
+            "temp": 29.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:false",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 5,
+          "input": {
+            "humidity": 50,
+            "temp": 30,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "actual": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:false",
+            "pumpStop:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "ventFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S05: возраст снимка 29/30/31",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 29,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 30,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 31,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "STALE",
+          "trace": [
+            "valid:true",
+            "fresh:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S06: запреты по одному — cold/rain/lowTank, tank=10 разрешает",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 2.9,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "COLD",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:true",
+            "rain:false",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": true,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "RAIN",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:true",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 9.9,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "LOW_TANK",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:true"
+          ]
+        },
+        {
+          "number": 4,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 10,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S07: fault и сброс",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 200,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": false,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": true
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S08: конфликт бюджета при двух запросах",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 2,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "BUDGET",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true",
+            "ventFits:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 3,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": true,
+            "fault": false,
+            "used": 3
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": false,
+          "reason": "BUDGET",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true",
+            "ventFits:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 32,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "actual": {
+            "pump": true,
+            "vent": true,
+            "fault": false,
+            "used": 5
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true",
+            "ventFits:true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S09: потеря памяти включения после защитного выключения",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "actual": {
+            "pump": true,
+            "vent": false,
+            "fault": false,
+            "used": 2
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:false",
+            "lowTank:false",
+            "pumpFits:true"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": true,
+            "reset": false
+          },
+          "before": {
+            "pump": true,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "RAIN",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:true",
+            "cold:false",
+            "rain:true",
+            "lowTank:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 40,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": false,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "NORMAL",
+          "trace": [
+            "valid:true",
+            "fresh:true",
+            "latched:false",
+            "ventStart:false",
+            "ventStop:true",
+            "pumpStart:false",
+            "pumpStop:false",
+            "cold:false",
+            "rain:false",
+            "lowTank:false"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S10: ошибки типов и структуры",
+      "steps": [
+        {
+          "number": 1,
+          "input": {
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": false
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        },
+        {
+          "number": 2,
+          "input": {
+            "humidity": "20",
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        },
+        {
+          "number": 3,
+          "input": {
+            "humidity": 20,
+            "temp": 20,
+            "age": 0,
+            "tank": 50,
+            "budget": 1.5,
+            "rain": false,
+            "reset": false
+          },
+          "before": {
+            "pump": false,
+            "vent": false,
+            "fault": true
+          },
+          "expected": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "actual": {
+            "pump": false,
+            "vent": false,
+            "fault": true,
+            "used": 0
+          },
+          "pass": true,
+          "reason": "INVALID",
+          "trace": [
+            "valid:false"
+          ]
+        }
+      ]
+    }
+  ],
+  "baselinePass": true,
+  "candidatePass": false,
+  "coverage": {
+    "covered": [
+      "valid:true",
+      "fresh:true",
+      "latched:false",
+      "ventStart:false",
+      "ventStop:true",
+      "pumpStart:true",
+      "cold:false",
+      "rain:false",
+      "lowTank:false",
+      "pumpFits:true",
+      "pumpStart:false",
+      "pumpStop:true",
+      "ventStart:true",
+      "ventFits:true",
+      "ventStop:false",
+      "pumpStop:false",
+      "fresh:false",
+      "cold:true",
+      "rain:true",
+      "lowTank:true",
+      "valid:false",
+      "latched:true",
+      "ventFits:false",
+      "pumpFits:false"
+    ],
+    "missing": [],
+    "total": 24,
+    "percent": 100
+  },
+  "mutations": [
+    {
+      "id": "M1",
+      "killed": false,
+      "killedBy": [],
+      "status": "survived"
+    },
+    {
+      "id": "M2",
+      "killed": true,
+      "killedBy": [
+        "S03: границы humidity 34.9/35/35.1/44.9/45 / 5"
+      ],
+      "status": "killed"
+    },
+    {
+      "id": "M3",
+      "killed": true,
+      "killedBy": [
+        "S04: границы temp 25.9/26/26.1/29.9/30 / 5"
+      ],
+      "status": "killed"
+    },
+    {
+      "id": "M4",
+      "killed": true,
+      "killedBy": [
+        "S05: возраст снимка 29/30/31 / 2"
+      ],
+      "status": "killed"
+    },
+    {
+      "id": "M5",
+      "killed": true,
+      "killedBy": [
+        "S07: fault и сброс / 2"
+      ],
+      "status": "killed"
+    },
+    {
+      "id": "M6",
+      "killed": true,
+      "killedBy": [
+        "S08: конфликт бюджета при двух запросах / 2"
+      ],
+      "status": "killed"
+    },
+    {
+      "id": "M7",
+      "killed": false,
+      "killedBy": [],
+      "status": "survived"
+    },
+    {
+      "id": "M8",
+      "killed": true,
+      "killedBy": [
+        "S06: запреты по одному — cold/rain/lowTank, tank=10 разрешает / 4"
+      ],
+      "status": "killed"
+    }
+  ],
+  "mutationScore": 75
+}
+
+Учебные исходы решений, не покрытие всего JavaScript. Контрольная реализация не заменяет независимый оракул.
