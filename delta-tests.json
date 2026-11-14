@@ -1,0 +1,32 @@
+[
+  {
+    "name": "D1 (2.1): h=39.9 — старт полива в новой зоне",
+    "steps": [
+      {"input": {"humidity": 39.9, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
+       "expected": {"pump": true, "vent": false, "fault": false, "used": 2}}
+    ]
+  },
+  {
+    "name": "D2 (2.1): h=40 — граница, зона удержания",
+    "steps": [
+      {"input": {"humidity": 40, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
+       "expected": {"pump": false, "vent": false, "fault": false, "used": 0}}
+    ]
+  },
+  {
+    "name": "D3 (2.1): h=44.9 — удержание ON при предыдущем ON",
+    "steps": [
+      {"input": {"humidity": 20, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
+       "expected": {"pump": true, "vent": false, "fault": false, "used": 2}},
+      {"input": {"humidity": 44.9, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
+       "expected": {"pump": true, "vent": false, "fault": false, "used": 2}}
+    ]
+  },
+  {
+    "name": "D4 (2.1): h=45 — выключение",
+    "steps": [
+      {"input": {"humidity": 45, "temp": 20, "age": 0, "tank": 50, "budget": 5, "rain": false, "reset": false},
+       "expected": {"pump": false, "vent": false, "fault": false, "used": 0}}
+    ]
+  }
+]
